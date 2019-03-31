@@ -22,7 +22,7 @@ var ReviewInstanceMock = {
  * @param callback error first callback
  * @returns {*}
  */
-Review.prototype.find = function (criteria, callback) {
+Review.find = function (criteria, callback) {
   //returns 3 mocked item
   return callback(null, [ReviewInstanceMock, ReviewInstanceMock, ReviewInstanceMock]);
 };
@@ -32,7 +32,7 @@ Review.prototype.find = function (criteria, callback) {
  * @param callback error first callback
  * @returns {*}
  */
-Review.prototype.findBest = function (callback) {
+Review.findBest = function (callback) {
   //returns 4 recipeIds
   return callback(null, [1, 2, 3, 4]);
 };

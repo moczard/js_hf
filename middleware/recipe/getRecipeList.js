@@ -9,8 +9,13 @@ module.exports = function (objectrepository) {
     var recipeModel = requireOption(objectrepository, 'recipeModel');
 
     return function (req, res, next) {
+        recipeModel.find({}, function (err, results) {
+            if (err) {
+                return next(new Error('Error getting recipes'));
+            }
 
-        return next();
+            res.tpl.recipes = results;
+            return next();
+        });
     };
-
 };

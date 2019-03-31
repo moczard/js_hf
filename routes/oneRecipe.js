@@ -2,6 +2,8 @@ var renderMW = require('../middleware/generic/render');
 
 var getRecipeMW = require('../middleware/recipe/getRecipe');
 var getReviewByRecipeIdMW = require('../middleware/review/getReviewByRecipeId');
+var updateRecipeMW = require('../middleware/recipe/updateRecipe');
+var deleteRecipeMW = require('../middleware/recipe/deleteRecipe');
 var addReviewMW = require('../middleware/review/addReview');
 
 var recipeModel = require('../models/recipe');
@@ -19,14 +21,34 @@ module.exports = function (app) {
   app.get('/recipe/:id',
     getRecipeMW(objectRepository),
     getReviewByRecipeIdMW(objectRepository),
-    renderMW(objectRepository, 'recipe')
+    renderMW(objectRepository, 'onerecipe')
+  );
+
+  /**
+   * Edit recipe details
+   */
+  app.use('/recipe/:id/edit',
+    getRecipeMW(objectRepository),
+    updateRecipeMW(objectRepository),
+    renderMW(objectRepository, 'editrecipe')
+  );
+
+  /**
+  * Delete recipe (will redirect to /home after finish)
+  */
+  app.use('/recipe/:id/delete',
+    getRecipeMW(objectRepository),
+    deleteRecipeMW(objectRepository),
+    function (req, res, next) {
+      return res.redirect('/home');
+    }
   );
 
   /**
    * Add review
    */
-  app.get('/recipe/:id',
-		getRecipeMW(objectRepository),
+  app.post('/recipe/:id',
+    getRecipeMW(objectRepository),
     addReviewMW(objectRepository),
     function (req, res, next) {
       return res.redirect('/recipe/' + req.param('id'));

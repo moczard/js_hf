@@ -9,18 +9,15 @@ module.exports = function (objectrepository) {
   var reviewModel = requireOption(objectrepository, 'reviewModel');
 
   return function (req, res, next) {
-    /**
-     *  reviewModel.find({ recipeId: req.param('recipeId')},function(err,results){
-     *    if (err){
-     *      return next(err);
-     *    }
-     *
-     *    res.tpl.reviews = results;
-     *    return next();
-     *  )
-     */
 
-    return next();
+    reviewModel.find({ recipeId: req.params.recipeId }, function (err, results) {
+      if (err) {
+        return next(err);
+      }
+
+      res.tpl.reviews = results;
+      return next();
+    });
   };
 
 };

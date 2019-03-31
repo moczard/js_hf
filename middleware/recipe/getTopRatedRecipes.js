@@ -7,10 +7,22 @@ var requireOption = require('../common').requireOption;
 module.exports = function (objectrepository) {
 
     var recipeModel = requireOption(objectrepository, 'recipeModel');
+    var reviewModel = requireOption(objectrepository, 'reviewModel');
 
     return function (req, res, next) {
+        reviewModel.findBest(function (err, ids) {
+            if (err) {
+                return next(new Error('Error getting best recipeIds'));
+            }
 
-        return next();
+            recipeModel.findByIds(ids, function (err, recipes) {
+                if (err) {
+                    return next(new Error('Error getting recipes'));
+                }
+    
+                res.tpl.bestRecipes = recipes;
+                return next();
+            });
+        });
     };
-
 };

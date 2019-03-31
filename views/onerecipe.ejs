@@ -1,0 +1,65 @@
+<%- include('header') %>
+
+<body>
+	<div class="details-wrapper">
+		<div class="details-content">
+			<div class="details-column">
+				<div class="title">
+					<%= recipe.name %>
+				</div>
+				<img class="details-img" src="<%= recipe.image %>" />
+			</div>
+			<div class="details-column">
+				<div class="buttons">
+					<a class="details-button" href="/recipe/<%= recipe.id %>/edit">Edit</a>
+					<a class="details-button" href="/recipe/<%= recipe.id %>/delete">Delete</a>
+				</div>
+				<div class="details">
+					<div class="details-title">
+						Ingredients
+					</div>
+					<ul>
+						<% recipe.ingredients.forEach(function (ingredient){ %>
+							<li><%= ingredient %></li>
+						<% }); %>
+					</ul>
+				</div>
+				<div class="details">
+					<div class="details-title">
+						Preparation
+					</div>
+					<ul>
+						<% recipe.preparations.forEach(function (preparation){ %>
+							<li><%= preparation %></li>
+						<% }); %>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="review">
+			<div class="review-row">
+				<div class="review-title">
+					Comments
+				</div>
+			</div>
+			<div class="review-row">
+				<% reviews.forEach(function (item){ %>
+					<%- include('reviewcard',{item : item}) %>
+				<% }); %>
+			</div>
+			<div class="review-row">
+				<div class="review-card">
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<textarea class="comment" type="text">
+					</textarea>
+					<a class="details-button" >Add comment</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

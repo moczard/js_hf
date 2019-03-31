@@ -11,9 +11,9 @@ var Recipe = function () {
 var RecipeInstanceMock = {
 	id: 2,
 	name: 'cookie',
-	image: 'img',
+	image: '/images/sample_pic_3.jpg',
 	ingredients: ['1.5l milk', 'salt'],
-	preparation: ['cut that', 'cook that'],
+	preparations: ['cut that', 'cook that'],
 	added: '2019-03-14'
 }
 
@@ -23,7 +23,7 @@ var RecipeInstanceMock = {
  * @param callback error first callback
  * @returns {*}
  */
-Recipe.prototype.findOne = function (criteria, callback) {
+Recipe.findOne = function (criteria, callback) {
 
   //returns 1 mocked item
   return callback(null, RecipeInstanceMock);
@@ -35,10 +35,22 @@ Recipe.prototype.findOne = function (criteria, callback) {
  * @param callback error first callback
  * @returns {*}
  */
-Recipe.prototype.find = function (criteria, callback) {
+Recipe.find = function (criteria, callback) {
 
   //returns 3 mocked item
   return callback(null, [RecipeInstanceMock, RecipeInstanceMock, RecipeInstanceMock]);
+};
+
+/**
+ * Find by ids
+ * @param ids
+ * @param callback error first callback
+ * @returns {*}
+ */
+Recipe.findByIds = function (ids, callback) {
+
+  //returns 4 mocked item
+  return callback(null, [RecipeInstanceMock, RecipeInstanceMock, RecipeInstanceMock, RecipeInstanceMock]);
 };
 
 /**
