@@ -10,12 +10,12 @@ module.exports = function (objectrepository) {
     var reviewModel = requireOption(objectrepository, 'reviewModel');
 
     return function (req, res, next) {
-        reviewModel.findBest(function (err, ids) {
-            if (err) {
+        reviewModel.find({}, function (iderr, ids) {
+            if (iderr) {
                 return next(new Error('Error getting best recipeIds'));
             }
 
-            recipeModel.findByIds(ids, function (err, recipes) {
+            recipeModel.find({}, function (err, recipes) {
                 if (err) {
                     return next(new Error('Error getting recipes'));
                 }

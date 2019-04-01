@@ -1,49 +1,14 @@
-/**
- * Review model (mock)
- * @constructor
- */
-var Review = function() {
-};
+var Schema = require('mongoose').Schema;
+var db = require('../config/db');
 
-/**
- * An instance
- */
-var ReviewInstanceMock = {
-	id: 1,
-	recipeId: 2,
-	rating: 4,
-	comment: 'Nice recipe',
-	added: '2019-03-12'
-}
-
-/**
- * Find all elements with the criteria
- * @param criteria
- * @param callback error first callback
- * @returns {*}
- */
-Review.find = function (criteria, callback) {
-  //returns 3 mocked item
-  return callback(null, [ReviewInstanceMock, ReviewInstanceMock, ReviewInstanceMock]);
-};
-
-/**
- * Find best rated elements
- * @param callback error first callback
- * @returns {*}
- */
-Review.findBest = function (callback) {
-  //returns 4 recipeIds
-  return callback(null, [1, 2, 3, 4]);
-};
-
-/**
- * Save the review to the db
- * @param callback error first callback
- * @returns {*}
- */
-Review.prototype.save = function (callback) {
-  return callback(null, this);
-};
+var Review = db.model('Review', {
+	rating: Number,
+	comment: String,
+	added: Date,
+	_recipeid: {
+		type: Schema.Types.ObjectId,
+		ref: 'Recipe'
+	}
+});
 
 module.exports = Review;

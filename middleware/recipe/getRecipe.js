@@ -11,9 +11,9 @@ module.exports = function (objectrepository) {
     var recipeModel = requireOption(objectrepository, 'recipeModel');
 
     return function (req, res, next) {
-        recipeModel.findOne({ id: req.params.recipeId }, function (err, result) {
+        recipeModel.find({ id: req.params.recipeId }, function (err, result) {
             if (err || !result) {
-                return req.redirect('/home');
+                return res.redirect('/home');
             }
 
             res.tpl.recipe = result;
