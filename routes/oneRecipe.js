@@ -38,10 +38,7 @@ module.exports = function (app) {
   */
   app.use('/recipe/:id/delete',
     getRecipeMW(objectRepository),
-    deleteRecipeMW(objectRepository),
-    function (req, res, next) {
-      return res.redirect('/home');
-    }
+    deleteRecipeMW(objectRepository)
   );
 
   /**
@@ -49,8 +46,6 @@ module.exports = function (app) {
    */
   app.post('/recipe/:id',
     getRecipeMW(objectRepository),
-    addReviewMW(objectRepository),
-    function (req, res, next) {
-      return res.redirect('/recipe/' + req.param('id'));
-    });
+    addReviewMW(objectRepository)
+  );
 };

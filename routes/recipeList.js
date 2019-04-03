@@ -23,6 +23,6 @@ module.exports = function (app) {
     */
     app.use('/recipes/new',
         updateRecipeMW(objectRepository),
-        renderMW(objectRepository, 'newrecipe')
+        renderMW(objectRepository, 'editrecipe')
     );
 }

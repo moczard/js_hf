@@ -11,12 +11,12 @@ module.exports = function (objectrepository) {
     var recipeModel = requireOption(objectrepository, 'recipeModel');
 
     return function (req, res, next) {
-        recipeModel.find({ id: req.params.recipeId }, function (err, result) {
+        recipeModel.findOne({ _id: req.params.id }, function (err, result) {
             if (err || !result) {
                 return res.redirect('/home');
             }
-
             res.tpl.recipe = result;
+
             return next();
         });
     };

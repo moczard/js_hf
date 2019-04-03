@@ -2,16 +2,19 @@
 
 	<body>
 		<div class="details-wrapper">
-			<div class="details-content">
+			<form method="POST" class="details-content">
 				<div class="details-column edit">
-					<input class="title-input" type="text" placeholder="Recipe name" value="<%= recipe.name  %>">
-					<img class="details-img" src="<%= recipe.image %>">
-					<a class="details-button">Upload image</a>
+					<input class="title-input" name="name" type="text" placeholder="Recipe name" value="<%= recipe.name  %>">
+					<img class="details-img" src="<%= recipe.image || '/images/placeholder_image.png'  %>">
+					<div class="edit-input-area">
+						<input class="upload-input" name="image" type="text" placeholder="image URL">
+						<button class="upload-button" type="submit">Upload image</button>
+					</div>
 				</div>
 				<div class="details-column">
 					<div class="buttons">
-						<a class="details-button" href="/home">Save</a>
-						<a class="details-button" href="/home">Cancel</a>
+						<button class="details-button" type="submit" value="true" name="save">Save</button>
+						<button class="details-button" type="submit" value="true" name="cancel">Cancel</button>
 					</div>
 					<div class="edit-details">
 						<div class="edit-title">
@@ -25,13 +28,13 @@
 								<% }); %>
 						</ul>
 						<div class="edit-input-area">
-							<input class="edit-input" type="text" placeholder="add ingredient">
-							<img class="edit-plus" src="/images/plus.png">
+							<input class="edit-input" name="ingredient" type="text" placeholder="add ingredient">
+							<input type="image" alt="Submit" class="edit-plus" src="/images/plus.png">
 						</div>
 					</div>
 					<div class="edit-details">
 						<div class="edit-title">
-							Preparation
+							Preparations
 						</div>
 						<ul class="edit-list">
 							<% recipe.preparations.forEach(function (preparation){ %>
@@ -41,12 +44,12 @@
 								<% }); %>
 						</ul>
 						<div class="edit-input-area">
-							<input class="edit-input" type="text" placeholder="add preparation">
-							<img class="edit-plus" src="/images/plus.png">
+							<input class="edit-input" name="preparation" type="text" placeholder="add preparation">
+							<input type="image" alt="Submit" class="edit-plus" src="/images/plus.png">
 						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 	</body>
 

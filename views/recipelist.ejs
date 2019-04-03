@@ -3,11 +3,7 @@
 	<body>
 		<div class="wrapper">
 			<div class="index-wrapper">
-				<div class="search-area">
-					<input type="search" placeholder="search" class="search">
-					<a class="details-button" href="/recipes">Search</a>
-					<a class="details-button" href="/recipes/new">Add recipe</a>
-				</div>
+				<%- include('searcharea') %>
 				<div class="subtitle">Results</div>
 				<div class="row">
 					<% recipes.forEach(function (item){ %>

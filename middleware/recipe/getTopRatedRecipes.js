@@ -10,19 +10,29 @@ module.exports = function (objectrepository) {
     var reviewModel = requireOption(objectrepository, 'reviewModel');
 
     return function (req, res, next) {
-        reviewModel.find({}, function (iderr, ids) {
-            if (iderr) {
-                return next(new Error('Error getting best recipeIds'));
+        reviewModel.aggregate([
+            {
+                $group: { _id: "$_recipeid", averageRating: { $avg: "$rating" } },
+            },
+            {
+                $sort: { averageRating: -1 }
+            },
+            {
+                $limit: 4
+            }
+        ]).exec(function (err, results) {
+            if (err) {
+                return next(err);
             }
 
-            recipeModel.find({}, function (err, recipes) {
+            recipeModel.find({ _id: results.map(r => r._id) }, function (err, recipes) {
                 if (err) {
-                    return next(new Error('Error getting recipes'));
+                    return next(err);
                 }
-    
+
                 res.tpl.bestRecipes = recipes;
                 return next();
-            });
+            })
         });
-    };
+    }
 };
