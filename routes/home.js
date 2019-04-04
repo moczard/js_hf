@@ -1,6 +1,7 @@
 var renderMW = require('../middleware/generic/render');
 
 var mainRedirectMW = require('../middleware/generic/mainredirect');
+var searchRedirectMW = require('../middleware/generic/searchredirect');
 
 var getRecipeListMW = require('../middleware/recipe/getRecipeList');
 var getTopRatedRecipesMW = require('../middleware/recipe/getTopRatedRecipes');
@@ -18,14 +19,15 @@ module.exports = function (app) {
 	/**
    * Main page
    */
-  app.get('/',
-    mainRedirectMW(objectRepository)
-  );
+	app.get('/',
+		mainRedirectMW(objectRepository)
+	);
 
 	/**
 	 * List top rated and latest recipes
 	 */
 	app.use('/home',
+		searchRedirectMW(objectRepository),
 		getRecipeListMW(objectRepository),
 		getTopRatedRecipesMW(objectRepository),
 		renderMW(objectRepository, 'home')
